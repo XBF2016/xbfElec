@@ -1,0 +1,112 @@
+原理 : 文档加载完成后,给表单注入onsubmit事件  , 在表单提交前验证需要验证的字段,只要有一个没有通过,表单不提交 
+
+//////////////快速开始///////////////////
+
+<script type="text/javascript" src="${pageContext.request.contextPath }/script/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/script/validate.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#form1").validate({
+			rules:{
+				account:"required",
+				username:"required",
+				units:"required"
+			},
+			submitHandler:function(form){
+				form.submit();
+				//alert('请求已提交');
+				//opener.location.reload();
+				//window.close();
+			}
+		});
+	});	
+</script>
+/////////////////////////////////////////
+
+一 默认校验规则
+
+	(1),required:true                  必输字段
+	(2),remote:"check.action"    使用ajax方式调用check.actin进行验证
+	(3),email:true                        格式正确的电子邮件
+	(4),url:true                            格式正确的网址
+	(5),date:true                          格式正确的日期
+	(6),dateISO:true                    格式正确的日期(ISO : 2009-01-02, 2009/01/01)只验证格式,不验证有效性
+	(7),number:true                    合法数字
+	(8),digits:true                       整数
+	(9),creditcard:                       信用卡号
+	(10),equalTo:"#field"            重复性验证
+	(11),accept:                           后缀名
+	(12),maxlength:5                  最大长度
+	(13),minlength                      最小长度
+	(14),rangelength:[5,10]        长度区间
+	(15),range:[5,10]                   取值区间
+	(16),max:5                             最大值
+	(17)min:1                              最小值
+
+	
+二 默认提示信息
+
+	required:"This field is required."
+	remote:"Please fix this field."
+	email:"Please enter a valid email address."
+	url:"Please enter a valid URL."
+	date:"Please enter a valid date."
+	dateISO:"Please enter a valid date [ISO]."
+	number:"Please enter a valid number."
+	digits:"Please enter only digits."
+	creditcard:"Please enter a valid creadit card number."
+	equalTo:"Please enter the same value again."
+	accept:"Please enter a value with a valid extension."
+	maxlength:$.validator.format("Please enter no more than {0} characters.")
+	minlength
+	rangelength:$.validator.format("Please enter a value between {0} and {1} charachers long.")
+	range:$.validator.format("Please enter a value between {0} and {1}.")
+	max:$.validator.format("Please enter a value less than or equal to {0}.")
+	min:$.validator.format("Please enter a value greater than or equal to {0}.")
+	
+
+三 修改默认提示信息
+
+1 可以直接在源码中修改
+
+2 新建一个js文件,内容如下,引入到页面即可  
+<script type="text/javascript" src="${pageContext.request.contextPath }/script/validate/validateMessage_zh_CN.js"></script>
+ 
+jQuery.extend(jQuery.validator.messages, {
+   required: "必选字段",
+   remote: "请修正该字段",
+   email: "请输入正确格式的电子邮件",
+   url: "请输入合法的网址",
+   date: "请输入合法的日期",
+   dateISO: "请输入合法的日期 (ISO).",
+   number: "请输入合法的数字",
+   digits: "只能输入整数",
+   creditcard: "请输入合法的信用卡号",
+   equalTo: "请再次输入相同的值",
+   accept: "请输入拥有合法后缀名的字符串",
+   maxlength: jQuery.validator.format("请输入一个 长度最多是 {0} 的字符串"),
+   minlength: jQuery.validator.format("请输入一个 长度最少是 {0} 的字符串"),
+   rangelength: jQuery.validator.format("请输入 一个长度介于 {0} 和 {1} 之间的字符串"),
+   range: jQuery.validator.format("请输入一个介于 {0} 和 {1} 之间的值"),
+   max: jQuery.validator.format("请输入一个最大为{0} 的值"),
+   min: jQuery.validator.format("请输入一个最小为{0} 的值")
+ });
+ 
+ 
+ 四 每个需要验证的表单项验证成功后的回调函数
+
+ success:function(label){}
+ 或者
+ success:'xxClass'       (xxClass是样式)
+ 
+ 
+ 
+ 五 所有表单验证成功后执行的回调函数
+ 
+ 注意:此回调函数会覆盖默认的回调函数,所以需要在自定义回调函数中手动调用form.submit() 以提交请求
+ submitHandler:function(form){
+ 	//...
+ 	form.submit();
+ 	//...
+ }

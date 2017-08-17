@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    
+       <class name="com.xbf.elec.domain.ElecUser"  table="elecUser"> 
+            <id name="userId" >
+                  <generator class="uuid"></generator>
+            </id>
+             <property name="username"></property>
+              <property name="password"></property>
+               <property name="account"></property>
+               <property name="gender"></property>
+              <property name="birthday"></property>
+               <property name="address"></property>
+                <property name="homeTel"></property>
+              <property name="email"></property>
+               <property name="phone"></property>
+               <property name="units"></property>
+              <property name="isDuty"></property>
+               <property name="onDutyDate"></property>
+                <property name="offDutyDate"></property>
+              <property name="comment"></property>
+               <property name="createUser"></property>
+               <property name="createDate"></property>
+              <property name="lastUpdateUser"></property>
+               <property name="lastUpdateDate"></property>
+                <property name="isDelete"></property>
+                
+                <set name="roles" table="elecUserRole"  lazy="false">
+                            <key column="userId" ></key>
+                            <many-to-many column="roleId" class="com.xbf.elec.domain.ElecRole"></many-to-many>
+                </set>
+        </class>
+    </hibernate-mapping>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="workflow" namespace="/workflow" extends="new-struts-default">
+		<action name="processDefinitionAction_*" class="processDefinitionAction"
+			method="{1}">
+			<result name="home">/WEB-INF/jsp/workflow/processDefinitionHome.jsp
+			</result>
+			<result name="add">/WEB-INF/jsp/workflow/processDefinitionAdd.jsp
+			</result>
+			<result name="deployment" type="redirectAction">/workflow/processDefinitionAction_home
+			</result>
+			<result name="delete" type="redirectAction">/workflow/processDefinitionAction_home
+			</result>
+			<result name="showProcessImg" type="stream">
+				<param name="contentType">image/png</param>
+
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+
+		<action name="applyTemplateAction_*" class="applyTemplateAction"
+			method="{1}">
+			<result name="home">/WEB-INF/jsp/workflow/applyTemplateHome.jsp
+			</result>
+			<result name="addPage">/WEB-INF/jsp/workflow/applyTemplateAdd.jsp
+			</result>
+			<result name="download" type="stream">
+				<param name="contentType">${#request.contentType}</param>
+				<param name="contentDisposition">attachment;filename=${#request.filename}</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<result name="delete" type="redirectAction">applyTemplateAction_home.action
+			</result>
+		</action>
+
+		<action name="applyAction_*" class="applyAction" method="{1}">
+			<result name="home">/WEB-INF/jsp/workflow/applyHome.jsp</result>
+			<result name="start"  type="redirectAction">applyAction_applyMy.action</result>
+            <result name="applyMy"  >/WEB-INF/jsp/workflow/applyMy.jsp</result>
+		</action>
+		
+		<action name="taskAction_*" class="taskAction" method="{1}">
+		     <result name="taskMy">/WEB-INF/jsp/workflow/taskMy.jsp</result>
+		       <result name="taskApprove">/WEB-INF/jsp/workflow/taskApprove.jsp</result>
+		       <result name="downloadApplyFile" type="stream">
+				<param name="contentType">${#request.contentType}</param>
+				<param name="contentDisposition">attachment;filename=${#request.filename}</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<result name="approve"  type="redirectAction">taskAction_taskMy.action</result>
+			<result name="approveInfo"  >/WEB-INF/jsp/workflow/processDetail.jsp</result>
+		</action>
+	</package>
+</struts>

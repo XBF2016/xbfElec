@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    
+       <class name="com.xbf.elec.domain.ElecApply"  table="elecApply"  lazy="false"> 
+            <id name="applyId" >
+                  <generator class="uuid"></generator>
+            </id>
+             <property name="username"></property>
+              <property name="userId"></property>
+               <property name="account"></property>
+               <property name="processDefinitionId"></property>
+              <property name="processDefinitionKey"></property>
+               <property name="applyTime"></property>
+                <property name="applyStatus"></property>
+              <property name="filename"></property>
+               <property name="path"></property>
+        </class>
+    </hibernate-mapping>

@@ -1,0 +1,6 @@
+[
+	{"userId":"001","username":"a张三","roles":[{"roleId":"001","name":"普通用户"}]},
+	{"userId":"002","username":"a李四","roles":[{"roleId":"002","name":"项目组长"}]},
+	{"userId":"003","username":"a王五","roles":[{"roleId":"003","name":"经理"},{"roleId":"004","name":"系统管理员"}]}
+	
+]

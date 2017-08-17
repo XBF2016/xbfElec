@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+           
+      
+      <bean id="elecTestService" class="com.xbf.elec.service.ElecTestService"> 
+               <property name="elecTestDAO" ref="elecTestDAO"></property>
+      </bean>
+      
+      <!-- MatterService -->
+      <bean id="matterService" class="com.xbf.elec.service.ElecMatterService" >
+                 <property name="elecMatterDAO" ref="matterDAO"></property>
+      </bean>
+      
+      <bean id="userService" class="com.xbf.elec.service.ElecUserService" >
+                 <property name="userDAO" ref="userDAO"></property>
+      </bean>
+      
+      <bean id="roleService" class="com.xbf.elec.service.ElecRoleService" >
+                 <property name="roleDAO" ref="roleDAO"></property>
+      </bean>
+      
+      <bean id="functionService" class="com.xbf.elec.service.ElecFunctionService" >
+                 <property name="functionDAO" ref="functionDAO"></property>
+      </bean>
+      
+      <bean id="jbpmService" class="com.xbf.elec.service.ElecJBPMService" >
+                 <property name="processEngine" ref="processEngine"></property>
+                 <property name="applyTemplateDAO" ref="applyTemplateDAO"></property>
+                  <property name="applyDAO" ref="applyDAO"></property>
+      </bean>
+      
+</beans>

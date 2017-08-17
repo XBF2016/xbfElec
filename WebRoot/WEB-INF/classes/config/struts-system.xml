@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+    <package name="system" namespace="/system" extends="new-struts-default">
+        <action name="matterAction_*" class="matterAction" method="{1}">
+                <result name="home">/WEB-INF/jsp/system/matterHome.jsp</result>
+                <result name="add" type="redirectAction">matterAction_home.action</result>
+                <result name="alermSB">/WEB-INF/jsp/menu/alermSB.jsp</result>
+               <result name="alermZD">/WEB-INF/jsp/menu/alermZD.jsp</result>
+        </action>
+        
+        <action name="userAction_*" class="userAction" method="{1}">
+                <result name="userHome">/WEB-INF/jsp/system/userHome.jsp</result>
+                <result name="userAdd">/WEB-INF/jsp/system/userAdd.jsp</result>
+                <result name="delete" type="redirectAction">userAction_userHome.action</result>
+                <result name="update" type="redirectAction">userAction_userHome.action</result>
+                <result name="userEdit">/WEB-INF/jsp/system/userEdit.jsp</result>
+                 <result name="loginSucc" >/WEB-INF/jsp/menu/home.jsp</result>
+                  <result name="loginError" >/WEB-INF/jsp/menu/index.jsp</result>
+        </action>
+        
+        <action name="authAction_*" class="authAction" method="{1}">
+                      <result name="roleHome" >/WEB-INF/jsp/system/roleHome.jsp</result>
+        </action>
+    </package>
+</struts>

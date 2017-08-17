@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.objectFactory" value="spring"></constant>
+    
+    <!-- 配置全局拦截器 -->
+    <package name="new-struts-default" abstract="true" namespace="/" extends="struts-default">
+              <!-- 准默认拦截器栈 -->
+              <interceptors>
+                       <interceptor name="authInterceptor" class="com.xbf.elec.web.interceptor.AuthInterceptor"></interceptor>
+                       <interceptor-stack name="newDefaultStack">
+                              <interceptor-ref name="authInterceptor"></interceptor-ref>
+                              <interceptor-ref name="defaultStack"></interceptor-ref>
+                       </interceptor-stack>
+              </interceptors>
+              
+              <!-- 指定默认拦截器栈 -->
+              <default-interceptor-ref name="newDefaultStack" ></default-interceptor-ref>
+              
+              <!-- 配置全局result -->
+              <global-results>
+                  <result name="authError">/authError.jsp</result>
+              </global-results>
+    </package>
+    
+       <include file="config/struts-test.xml"></include>    
+       <include file="config/struts-menu.xml"></include> 
+       <include file="config/struts-system.xml"></include> 
+       <include file="config/struts-workflow.xml"></include> 
+</struts>

@@ -1,0 +1,166 @@
+一 简介
+dataTables是一个前端分页jQuery插件,要求jQuery1.7版本以上.
+dataTables灵活可配置,提供了分页 , ajax异步请求和刷新 , 条件过滤 , 排序 等功能 
+
+二 使用
+1 下载后，将media文件夹里面的css，images，js文件夹抽取出来放到网站下,使用时引入即可
+2 可以通过配置各种属性定义dataTables的行为和外观
+3 当进行条件分页查询时,需要引入一个扩展函数fnReloadAjax
+
+
+三  配置项
+
+属性名称                        默认值(其他取值)                                           申明
+
+1 基本功能的开关
+bServerSide                   false                                                         是否开启服务器支持(使用ajax时需要为true)
+bPaginate                      true                                                          显示分页兰
+bInfo                              true                                                          显示信息栏
+bFilter                            true                                                          显示过滤栏
+bSort                             true                                                          排序功能
+//其他功能开关
+bProcessing                  false                                                          进度栏
+bStateSave                    false                                                          cookie状态记录功能
+
+1 ajax请求相关
+sAjaxSource                 null                                                ajax请求的url
+
+
+2 分页相关
+iDisplayLength           10                                                      每页的数据条数
+iDisplayStart               0                                                       要显示的第一条数据的索引
+sPaginationType         two_button  (full_numbers)            指定分页栏风格,full_numbers有首页和尾页
+
+5 ui布局相关
+sDom                         default lfrtip （when bJQueryUI is false） or <"H"lfr>t<"F"ip> （when bJQueryUI is true）      这是用于定义DataTable布局的一个强大的属性
+/*
+//布局表达式 , 定义表格,分页栏,提示信息,搜索框,等的整体布局
+"sDom": '<"top"i>rt<"bottom"flp><"clear">'
+表示下面的意思:
+<div class="top">i</div>
+rt
+<div class="bottom">flp</div>
+<div class="clear"></div>
+ 
+//l - 每页数量选择select
+//f - 搜索框search
+//t - 表单内容table
+//i - 当前条数，总共条数information
+//p- 翻页按钮pagination
+//r - 请求中的提示信息
+//<  > - 一个div的开始与结束
+//<"class">- class为div的class名称
+*/
+
+//滚动条
+sScrollX                       ? 貌似没效果                                 
+sScrollXInner               100%                                               指定内部table的宽度,推荐100% , 如果超过100%,x轴会有滚动条
+sScrollY                        40%                                                指定整体高度,如果过小,y轴会出现滚动条,如果过大,内部table会和底部有空隙,推荐不设置
+
+
+7 表格行,列属性配置
+asStripClasses           ["odd"，"even"]                                              指定各表格行的class名，会主动轮回
+aoColumnDefs: [//定义每列的可搜索性,可见性
+      { 
+        "aTargets": [ 2 ], //目标列
+        "bSearchable": false, 
+        "bVisible": false
+       }
+]
+
+8  国际化语言信息设置
+oLanguage: {
+       "sLengthMenu": "每页显示 _MENU_条",
+       "sZeroRecords": "没有找到符合条件的数据",
+       "sProcessing": "&lt;img src=’./loading.gif’ /&gt;",
+       "sInfo": "当前第 _START_ - _END_ 条　共计 _TOTAL_ 条",
+       "sInfoEmpty": "木有记录",
+       "sInfoFiltered": "(从 _MAX_ 条记录中过滤)",
+       "sSearch": "搜索：",
+       "oPaginate": {
+              "sFirst": "首页",
+              "sPrevious": "前一页",
+              "sNext": "后一页",
+              "sLast": "尾页"
+       }
+}
+//或者直接引入语言包(格式相同)
+oLanguage: {
+	sUrl: "xx.txt"
+}
+
+
+9 回调函数
+
+//每创建一个表格行时调用,可以修改追加表格行的数据
+fnRowCallback: function( nRow, aData, iDataIndex ) {
+	//nRow  表格行dom对象
+	//aData  表格行填充的数据
+	//iDataIndex  行索引
+	
+	return nRow;
+} 
+
+
+//需要从服务器请求数据时调用
+fnServerData: function ( sSource, aoData,fnCallback, oSettings ) { 
+      oSettings.jqXHR = $.ajax( {
+      		"dataType": 'json', 
+			"type": "POST", 
+			"url": sSource, 
+      		"data": aoData, 
+     		"success": fnCallback 
+     } );
+}
+
+
+//向服务器发送请求时调用,用来添加额外的请求参数
+fnServerParams : function ( aoData ) {
+	aoData.push( { 
+	      "name": "more_data",
+	      "value": "my_value"
+	 });
+}
+
+////////////////////////////////////////////////
+服务器ajax分页开发
+
+//1 dataTables设置
+		"bProcessing": true,
+ 		"bServerSide": true,
+		"sAjaxSource": "${pageContext.request.contextPath }/system/elecUserAction_page.action",
+		"fnServerParams": function ( aoData ) {
+				var username=$("#username").val();
+				if(username){
+					aoData.push( { "name": "username", "value": username} );	
+				}
+		},
+		"fnServerData": function ( sSource, aoData, fnCallback ) {
+ 					$.ajax( {
+ 							"dataType": 'json',
+ 							"type": "POST",
+ 							"url": sSource,
+ 							"data": aoData,
+ 							"success": fnCallback
+ 					} );
+ 		 }
+ 		 
+ 		 
+//2  客户端发送的请求参数
+sEcho=1                                          //客户端请求次数,对服务器端无实际意义,但服务器需按原值返回给客户端
+iDisplayStart=0                              //要显示的第一条数据在数据库中的索引
+iDisplayLength=10                         //每页显示的数据条数
+xxx=xxx                                          //(其他自定义的额外参数,通过fnServerParams回调函数设置)
+
+//3 服务器返回的数据的格式 
+
+{
+	"sEcho":1,
+	"iTotalRecords":26,        //总数据条数
+	"iTotalDisplayRecords":26,
+	"aaData":[      //一页数据
+			{"userId":"001","account":"dandan1","username":"dandan1","gender":"male"},
+			{"userId":"002","account":"dandan2","username":"dandan2","gender":"male"},
+			{"userId":"003","account":"dandan3","username":"dandan3","gender":"male"}
+	]
+}

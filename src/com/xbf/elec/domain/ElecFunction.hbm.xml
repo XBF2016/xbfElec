@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    
+       <class name="com.xbf.elec.domain.ElecFunction"  table="elecFunction"> 
+            <id name="functionId" >
+                  <generator class="uuid"></generator>
+            </id>
+             <property name="functionName"></property>
+             <property name="path"></property>
+             <property name="groups"></property>
+             
+        </class>
+    </hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<!-- 为了防止数据冲突，item的key应该加上group的key作为前缀 -->
+	<group key="gender" value="性别">
+		<item key="gender_male" value="男"></item>
+		<item key="gender_female" value="女"></item>
+	</group>
+	<group key="isDuty" value="是否在职">
+		<item key="isDuty_on" value="在职"></item>
+		<item key="isDuty_off" value="离职"></item>
+	</group>
+	<group key="units" value="所属单位">
+		<item key="units_beijing1" value="北京1"></item>
+		<item key="units_shenzhen1" value="深圳1"></item>
+		<item key="units_shanghai1" value="上海1"></item>
+	</group>
+	<group value="申请状态" key="applyStatus">
+		<item value="审核中" key="applyStatus_ing" />
+		<item value="审核通过" key="applyStatus_pass" />
+		<item value="审核未通过" key="applyStatus_fail" />
+	</group>
+</dictionary>

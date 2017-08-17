@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+    <package name="menu" namespace="/menu" extends="new-struts-default">
+        <action name="menuAction_*" class="menuAction" method="{1}">
+               <result name="alermJX">/WEB-INF/jsp/menu/alermJX.jsp</result>
+               <result name="alermYS">/WEB-INF/jsp/menu/alermYS.jsp</result>
+                <result name="alermXZ">/WEB-INF/jsp/menu/alermXZ.jsp</result>
+               <result name="home">/WEB-INF/jsp/menu/home.jsp</result> 
+               <result name="index">/WEB-INF/jsp/menu/index.jsp</result>
+               <result name="left">/WEB-INF/jsp/menu/left.jsp</result>
+               <result name="loading">/WEB-INF/jsp/menu/loading.jsp</result>
+               <result name="title">/WEB-INF/jsp/menu/title.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- 字典的初始化 -->
+	<listener>
+		<listener-class>com.xbf.elec.web.listener.InitListener</listener-class>
+	</listener>
+
+
+	<!-- 配置Struts2核心过滤器 -->
+	<filter>
+		<filter-name>struts</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts</filter-name>
+		<!--
+			配置只过滤action和jsp，这样文件上传需要访问的jsp通过servlet来转发，即先访问servlet（struts2不会过滤它），通过servlet转发到文件上传相关的jsp页面
+		-->
+		<url-pattern>*.action</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+	<!-- 配置spring核心监听器 -->
+	<!-- 配置文件位置 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/beans.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>KindEditoServlet</servlet-name>
+		<servlet-class>com.xbf.elec.web.servlet.KindEditoServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>KindEditoServlet</servlet-name>
+		<url-pattern>/KindEditorServlet</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
